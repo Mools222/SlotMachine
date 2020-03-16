@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        Slot slot = new Slot(4, 7);
-
+        Slot slot = new Slot(3, 10);
+        slot.createSymbols();
 //        slot.spin();
 
         int totalSpinsCounter = 0;
