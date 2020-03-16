@@ -2,32 +2,31 @@ import java.util.Arrays;
 
 public class Slot {
         private char[][] reels;
-    private int numberOfSymbols;
 //    char[][] reels = {
 //            {'w', '2', '2'},
 //            {'5', '8', '1'},
 //            {'5', '2', '6'}
 //    };
-    private int[] symbols;
+    private char[] symbols;
     private int wild = 'w';
 
     public Slot(int reelRowsAndColumns, int numberOfSymbols) {
         reels = new char[reelRowsAndColumns][reelRowsAndColumns];
-        this.numberOfSymbols = numberOfSymbols;
+        createSymbols(numberOfSymbols);
     }
 
-    public void createSymbols() {
-        symbols = new int[numberOfSymbols];
+    public void createSymbols(int numberOfSymbols) {
+        symbols = new char[numberOfSymbols];
         for (int i = 0; i < symbols.length; i++) {
-            symbols[i] = i;
+            symbols[i] = (char) (i + 33); // Start from 33 to get some nice symbols (33 = !) (see an ASCII table).
         }
-        symbols[symbols.length - 1] = 'w';
+        symbols[symbols.length - 1] = 'w'; // Note that wild is set to w (which is number 119), so if you pick more than 87 symbols, you're going to get incorrect results
     }
 
     public boolean spin() {
         for (int i = 0; i < reels.length; i++) {
             for (int j = 0; j < reels[i].length; j++) {
-                reels[i][j] = (char) symbols[(int) (Math.random() * symbols.length)];
+                reels[i][j] = symbols[(int) (Math.random() * symbols.length)];
             }
         }
 
@@ -77,10 +76,10 @@ public class Slot {
     }
 
     public boolean checkWinnerDiagonal() {
-        int firstSymbol = -1;
+        char firstSymbol = '\u0000';
 
         for (int i = 0; i < reels.length; i++) {
-            if (firstSymbol < 0) {
+            if (firstSymbol == '\u0000') {
                 if (reels[i][i] != wild)
                     firstSymbol = reels[i][i];
             } else if (reels[i][i] != firstSymbol && reels[i][i] != wild)
@@ -93,10 +92,10 @@ public class Slot {
     }
 
     public boolean checkWinnerAntidiagonal() {
-        int firstSymbol = -1;
+        char firstSymbol = '\u0000';
 
         for (int i = 0, j = reels.length - 1; i < reels.length; i++, j--) {
-            if (firstSymbol < 0) {
+            if (firstSymbol == '\u0000') {
                 if (reels[i][j] != wild)
                     firstSymbol = reels[i][j];
             } else if (reels[i][j] != firstSymbol && reels[i][j] != wild)

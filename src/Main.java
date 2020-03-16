@@ -1,20 +1,21 @@
 public class Main {
     public static void main(String[] args) {
-        Slot slot = new Slot(3, 10);
-        slot.createSymbols();
+        Slot slot = new Slot(3, 11);
+
 //        slot.spin();
 
+        int numberOfTests = 10000;
         int totalSpinsCounter = 0;
 
-        for (int i = 0; i < 10000; i++) {
-            int spinCounter = 0;
+        for (int i = 0; i < numberOfTests; i++) {
+            int spinsCounter = 0;
             while (!slot.spin())
-                ++spinCounter;
+                ++spinsCounter;
 
-//            System.out.println(spinCounter);
-            totalSpinsCounter += spinCounter;
+//            System.out.println(spinsCounter);
+            totalSpinsCounter += spinsCounter;
         }
 
-        System.out.println(totalSpinsCounter / 10000.0);
+        System.out.println((double) totalSpinsCounter / numberOfTests);
     }
 }
