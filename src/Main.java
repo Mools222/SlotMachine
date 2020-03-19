@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        Slot slot = new Slot(3, 11);
+        Slot slot = new Slot(3, 12, false);
 
 //        slot.spin();
 

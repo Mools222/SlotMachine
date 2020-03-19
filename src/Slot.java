@@ -8,19 +8,23 @@ public class Slot {
 //            {'5', '2', '6'}
 //    };
     private char[] symbols;
-    private int wild = 'w';
+    private char wild;
 
-    public Slot(int reelRowsAndColumns, int numberOfSymbols) {
+    public Slot(int reelRowsAndColumns, int numberOfSymbols, boolean addWildSymbol) {
         reels = new char[reelRowsAndColumns][reelRowsAndColumns];
-        createSymbols(numberOfSymbols);
+        createSymbols(numberOfSymbols, addWildSymbol);
     }
 
-    public void createSymbols(int numberOfSymbols) {
+    public void createSymbols(int numberOfSymbols, boolean addWildSymbol) {
         symbols = new char[numberOfSymbols];
         for (int i = 0; i < symbols.length; i++) {
             symbols[i] = (char) (i + 33); // Start from 33 to get some nice symbols (33 = !) (see an ASCII table).
         }
-        symbols[symbols.length - 1] = 'w'; // Note that wild is set to w (which is number 119), so if you pick more than 87 symbols, you're going to get incorrect results
+
+        if (addWildSymbol) {
+            wild = 'w';
+            symbols[symbols.length - 1] = wild; // Note that wild is set to w (which is number 119), so if you pick more than 87 symbols, you're going to get incorrect results
+        }
     }
 
     public boolean spin() {
